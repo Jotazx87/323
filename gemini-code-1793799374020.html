@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para a melhor duozona ❤️</title>
+    <style>
+        body {
+            background-color: #1a1a2e;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            line-height: 1.5;
+            color: #ff758c;
+            text-shadow: 0 0 10px rgba(255, 117, 140, 0.5);
+            min-height: 150px;
+        }
+
+        .hint {
+            margin-top: 30px;
+            font-size: 1.1rem;
+            color: #a0a0c0;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.4; }
+            50% { opacity: 1; }
+            100% { opacity: 0.4; }
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 30px;
+            background-color: #ff758c;
+            vertical-align: middle;
+            animation: blink 0.8s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 id="texto-letreiro"></h1><span class="cursor"></span>
+        <div class="hint" id="instrucao">Pressione a tecla <b>ESPAÇO</b> para revelar a mensagem... ✨</div>
+    </div>
+
+    <script>
+        const mensagem = "Oiiii minha duozonaaaa, to sendo chatinho esses dias… perdaoooo hehe prometo que parei ❤️ tu é a melhorrrrr diculpa por ser chatooooo";
+        let indiceAtual = 0;
+
+        const elementoTexto = document.getElementById("texto-letreiro");
+        const elementoInstrucao = document.getElementById("instrucao");
+
+        window.addEventListener("keydown", function(event) {
+            // Verifica se a tecla pressionada foi o espaço
+            if (event.code === "Space" || event.key === " ") {
+                event.preventDefault(); // Evita a rolagem padrão da página ao apertar espaço
+
+                if (indiceAtual < mensagem.length) {
+                    elementoTexto.textContent += mensagem.charAt(indiceAtual);
+                    indiceAtual++;
+
+                    if (indiceAtual === mensagem.length) {
+                        elementoInstrucao.textContent = "Fim da mensagem! ❤️";
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
