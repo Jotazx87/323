@@ -3,93 +3,302 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para a melhor duozona ❤️</title>
+    <title>Para a melhor duozona do mundo! 🎮✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
         body {
-            background-color: #1a1a2e;
-            color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
-            text-align: center;
+            overflow-x: hidden;
             padding: 20px;
         }
 
         .container {
-            max-width: 700px;
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        h1 {
-            font-size: 2rem;
-            line-height: 1.5;
-            color: #ff758c;
-            text-shadow: 0 0 10px rgba(255, 117, 140, 0.5);
-            min-height: 150px;
+        /* Estilo do Envelope */
+        .envelope-wrapper {
+            position: relative;
+            background: #ff758c;
+            background: linear-gradient(135deg, #ff7eb3, #ff758c);
+            width: 320px;
+            height: 220px;
+            border-radius: 0 0 15px 15px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            transition: transform 0.5s ease;
         }
 
-        .hint {
-            margin-top: 30px;
-            font-size: 1.1rem;
-            color: #a0a0c0;
-            animation: pulse 1.5s infinite;
+        .envelope-wrapper:hover {
+            transform: scale(1.03);
         }
 
-        @keyframes pulse {
-            0% { opacity: 0.4; }
-            50% { opacity: 1; }
-            100% { opacity: 0.4; }
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-top: 120px solid #ff5277;
+            transform-origin: top;
+            transition: transform 0.6s ease 0.2s;
+            z-index: 3;
         }
 
-        .cursor {
-            display: inline-block;
-            width: 10px;
-            height: 30px;
-            background-color: #ff758c;
-            vertical-align: middle;
-            animation: blink 0.8s infinite;
+        .envelope-pocket {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 160px solid #ff6584;
+            border-right: 160px solid #ff6584;
+            border-bottom: 110px solid #ff476f;
+            border-radius: 0 0 15px 15px;
+            z-index: 2;
         }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
+        .seal {
+            position: absolute;
+            top: 75px;
+            width: 50px;
+            height: 50px;
+            background: #ffd700;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 4;
+            transition: transform 0.3s;
+        }
+
+        .envelope-hint {
+            position: absolute;
+            bottom: -40px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            animation: bounce 1.5s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Estilo da Carta (inicialmente escondida) */
+        .letter {
+            position: absolute;
+            bottom: 10px;
+            width: 90%;
+            max-width: 440px;
+            background: #fff;
+            padding: 30px 25px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            z-index: 1;
+            opacity: 0;
+            transform: translateY(50px) scale(0.9);
+            pointer-events: none;
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        /* Estados Ativos da Abertura */
+        .container.open .envelope-flap {
+            transform: rotateX(180deg);
+            z-index: 0;
+        }
+
+        .container.open .seal {
+            opacity: 0;
+            transform: scale(0);
+        }
+
+        .container.open .envelope-wrapper {
+            transform: translateY(120px);
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
+        .container.open .envelope-hint {
+            display: none;
+        }
+
+        .container.open .letter {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+            z-index: 10;
+        }
+
+        /* Conteúdo da Carta */
+        .letter h2 {
+            color: #ff476f;
+            font-size: 22px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .letter p {
+            color: #444;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .signature {
+            font-weight: 700;
+            color: #302b63;
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        /* Botões de Resposta */
+        .response-section {
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .response-section p {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 12px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            position: relative;
+            min-height: 50px;
+        }
+
+        .btn {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 25px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .btn-yes {
+            background: #ff476f;
+            color: white;
+            box-shadow: 0 4px 10px rgba(255, 71, 111, 0.4);
+        }
+
+        .btn-yes:hover {
+            background: #e0385d;
+            transform: scale(1.05);
+        }
+
+        .btn-no {
+            background: #e0e0e0;
+            color: #555;
+            position: relative;
+        }
+
+        /* Mensagem de Resposta */
+        #reply-message {
+            margin-top: 15px;
+            font-weight: 600;
+            color: #27ae60;
+            font-size: 16px;
+            text-align: center;
+            display: none;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1 id="texto-letreiro"></h1><span class="cursor"></span>
-        <div class="hint" id="instrucao">Pressione a tecla <b>ESPAÇO</b> para revelar a mensagem... ✨</div>
+    <div class="container" id="cardContainer" onclick="openCard()">
+        <!-- Envelope -->
+        <div class="envelope-wrapper">
+            <div class="envelope-flap"></div>
+            <div class="envelope-pocket"></div>
+            <div class="seal">💌</div>
+        </div>
+        <div class="envelope-hint">Clique para abrir a cartinha, duozona! 👇</div>
+
+        <!-- Carta -->
+        <div class="letter" onclick="event.stopPropagation()">
+            <h2>Oiii minha duozonaaa! 🎮💖</h2>
+            <p>Minha melhorzona do mundooooooo sou seu fã, ta melhorzona do mundoo? Primeiramente, quero falar q vc é a melhorrr.</p>
+            <p>Entaummm, lembra q falei q eu ia fazer um ngc no mesversario de 1 ANO? Entaummm, 1 ano de amizade… 1 ano q agente vai ser os melhores amigos pra sempre… Eu amo ser seu melhor amigo e espero q vc tbb!</p>
+            <p>Entaum duozona, tava pensando… 1 ano de melhor amigo e tal, eu queria passar umas ferias ai… <strong>gostaria de conhecer o duozao pessoalmente?</strong> rsrs Preciso q responda com sinceridade mesmo duozona 🙃 se num gostar da ideia tbb tudo bemmm hehe responde pra eu aiii.</p>
+            <p class="signature">Tu é a melhorrrr ta? ✨</p>
+
+            <div class="response-section" id="responseSection">
+                <p>E aí, vai aceitar a visita do duozao nas férias? 🤔</p>
+                <div class="buttons">
+                    <button class="btn btn-yes" onclick="responder('Sim!')">Com certeza! ✈️</button>
+                    <button class="btn btn-no" id="btnNo" onmouseover="fugir()" onclick="responder('Não... zoeira, sim!')">Ainda tô pensando...</button>
+                </div>
+            </div>
+            <div id="reply-message"></div>
+        </div>
     </div>
 
     <script>
-        const mensagem = "Oiiii minha duozonaaaa, to sendo chatinho esses dias… perdaoooo hehe prometo que parei ❤️ tu é a melhorrrrr... diculpa por ser chatooooo hehe num deixa de ser essa melhorzona do mundo q vc é nunca taaaaa? e vem ser minha devvvv pfvv, meu sonho pedir codigos a tu duozonaaaaa. SOU SEU FÃ EM TUDO E SEMPRE QUERO SER SEU MELHOR AMIGO";
-        let indiceAtual = 0;
+        let isOpen = false;
 
-        const elementoTexto = document.getElementById("texto-letreiro");
-        const elementoInstrucao = document.getElementById("instrucao");
-
-        window.addEventListener("keydown", function(event) {
-            // Verifica se a tecla pressionada foi o espaço
-            if (event.code === "Space" || event.key === " ") {
-                event.preventDefault(); // Evita a rolagem padrão da página ao apertar espaço
-
-                if (indiceAtual < mensagem.length) {
-                    elementoTexto.textContent += mensagem.charAt(indiceAtual);
-                    indiceAtual++;
-
-                    if (indiceAtual === mensagem.length) {
-                        elementoInstrucao.textContent = "Fim da mensagem! ❤️";
-                    }
-                }
+        function openCard() {
+            if (!isOpen) {
+                const container = document.getElementById('cardContainer');
+                container.classList.add('open');
+                isOpen = true;
             }
-        });
-    </script>
+        }
 
+        // Função para o botão do "Não / Pensando" fugir da kuin de leve se o mouse chegar perto (brincadeira amigável)
+        function fugir() {
+            const btnNo = document.getElementById('btnNo');
+            const randomX = (Math.random() - 0.5) * 100;
+            const randomY = (Math.random() - 0.5) * 60;
+            btnNo.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        }
+
+        function responder(resposta) {
+            const responseSection = document.getElementById('responseSection');
+            const replyMessage = document.getElementById('reply-message');
+            
+            responseSection.style.display = 'none';
+            replyMessage.style.display = 'block';
+            
+            if (resposta.includes('Sim')) {
+                replyMessage.innerHTML = "Ebaaa! Resposta anotada com sucesso! 🚀 Já pode preparar o terreno pras férias, duozona!";
+            } else {
+                replyMessage.innerHTML = "Humm, captado! Mas de qualquer forma, tu é a melhor! 👊";
+            }
+        }
+    </script>
 </body>
 </html>
